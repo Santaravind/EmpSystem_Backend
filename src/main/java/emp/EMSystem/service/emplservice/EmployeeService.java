@@ -35,4 +35,9 @@ public class EmployeeService {
         employeeRepo.delete(employee);
         return "Deletion is succesfully completed !!!"+employee.getEmployeeID();
     }
+
+    //custom service
+    public List<Employee> getbyDepartment(String department){
+        return  employeeRepo.findByDepartment(department);
+    }
 }

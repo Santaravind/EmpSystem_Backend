@@ -11,29 +11,29 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping()
+@RequestMapping("/api")
 public class EmployeeController {
     @Autowired
   private EmployeeService service;
 
 
-    @GetMapping("/user/get-all-employees")
+    @GetMapping("/get-all-employees")
     public ResponseEntity<List<Employee>> getAllEmployee(){
         return  ResponseEntity.ok(service.getAllEmployee());
     }
 
-    @PostMapping("/user/add-employees")
+    @PostMapping("/add-employees")
     public ResponseEntity<Employee> createEmployee(@RequestBody  Employee employee){
         return  ResponseEntity.ok(service.addEmployee(employee));
     }
 
-    @GetMapping("/user/get-employees/{id}")
+    @GetMapping("/get-employees/{id}")
     public ResponseEntity<Employee>getEmployeeBYId(@PathVariable("id") Long id){
         return  ResponseEntity.ok(service.getEmployeeById(id));
     }
 
 
-    @DeleteMapping("/user/delete-employees/{id}")
+    @DeleteMapping("/delete-employees/{id}")
     public ResponseEntity<String> updateEmployee(@PathVariable("id") Long id){
         Employee empObj=service.getEmployeeById(id);
         String DeleteMsg=null;
@@ -42,6 +42,12 @@ public class EmployeeController {
         }
         return ResponseEntity.ok(DeleteMsg);
     }
+
+    @GetMapping("/employee/{department}")
+    public ResponseEntity<List<Employee>> getByDepartment(@PathVariable("department") String department) {
+        return ResponseEntity.ok(service.getbyDepartment(department));
+    }
+
 
 
 
