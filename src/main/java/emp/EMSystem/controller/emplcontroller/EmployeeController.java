@@ -33,6 +33,24 @@ public class EmployeeController {
         return ResponseEntity.ok(service.getEmployeeById(id));
     }
 
+    //Update Employee detail
+    @PatchMapping("/update-employee/{id}")
+    public ResponseEntity<Employee> updatedata(@RequestBody Employee employee,@PathVariable("id") Long id){
+         Employee employee1=service.getEmployeeById(id);
+         if (employee1 !=null){
+             employee1.setFirst_Name(employee.getFirst_Name());
+             employee1.setLast_Name(employee.getLast_Name());
+             employee1.setAddress(employee.getAddress());
+             employee1.setDate_of_Birth(employee.getDate_of_Birth());
+             employee1.setDepartment(employee.getDepartment());
+             employee1.setEmailId(employee.getEmailId());
+             employee1.setJoining_Date(employee.getJoining_Date());
+             employee1.setPhone_Number(employee.getPhone_Number());
+             employee1.setPosition(employee.getPosition());
+             employee1.setStatus(employee.getStatus());
+         }
+          return ResponseEntity.ok(service.update(employee));
+    }
 
     @DeleteMapping("/delete-employees/{id}")
     public ResponseEntity<String> updateEmployee(@PathVariable("id") Long id) {

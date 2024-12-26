@@ -55,6 +55,8 @@ public class EmployeeService {
     }
 
 
+    public Employee update(Employee employee) {
+        return (employeeRepo.save(employee));
 
-
+    }
 }
