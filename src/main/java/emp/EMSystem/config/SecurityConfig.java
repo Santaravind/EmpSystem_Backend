@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**", "/public/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/manager/**").hasAnyAuthority("ADMIN","HR")
-                        .requestMatchers("/api/**").hasAnyAuthority("EMPLOYEE","HR") //change user to any users ,admin
+                        .requestMatchers("/api/**").hasAnyAuthority("EMPLOYEE","HR","ADMIN") //change user to any users ,admin
                         //.requestMatchers("/adminuser/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
                         .anyRequest().authenticated()
                 )

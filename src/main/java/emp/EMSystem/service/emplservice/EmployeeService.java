@@ -3,6 +3,9 @@ package emp.EMSystem.service.emplservice;
 import emp.EMSystem.model.Employee;
 import emp.EMSystem.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +42,21 @@ public class EmployeeService {
     //custom service
     public List<Employee> getbyDepartment(String department){
         return  employeeRepo.findByDepartment(department);
+    }
+
+    //Pagination
+    public Page<Employee> findEmployeeWithPagination(int offset, int pageSize ) {
+        return (Page<Employee>) employeeRepo.findAll(PageRequest.of(offset, pageSize));
+    }
+
+    //sorting and pagination
+    public Page<Employee> findPaginationwithSort(int offset, int pageSize ,String filed) {
+        return (Page<Employee>) employeeRepo.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(filed)));
+    }
+
+
+    public Employee update(Employee employee) {
+        return (employeeRepo.save(employee));
+
     }
 }
