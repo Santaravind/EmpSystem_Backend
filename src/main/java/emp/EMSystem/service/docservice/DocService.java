@@ -24,6 +24,7 @@ public class DocService {
         return repositery.findById(id);
     }
 
+    //find by emp id
     public String fetchFileNameByEmpId(long empId){
         return  repositery.getFileNameByEmpId(empId);
     }

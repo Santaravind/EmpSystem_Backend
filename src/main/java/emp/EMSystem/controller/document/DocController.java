@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/database")
+@RequestMapping("/api")
 public class DocController {
 
 
@@ -20,17 +20,17 @@ public class DocController {
     public DocController(DocService service) {
         this.service = service;
     }
-    @GetMapping("/get-all")
+    @GetMapping("/database/get-all")
     public List<Document> getAllFilesname(){
         return service.getallfiles();
     }
 
-    @GetMapping("/file/{id}")
+    @GetMapping("/database/file/{id}")
     public Optional<Document> getfilebyId(@PathVariable Long id){
         return  service.getFilebyId(id);
     }
 
-    @GetMapping("/filebyempId/{empId}")
+    @GetMapping("/database/filebyempId/{empId}")
     public ResponseEntity<String> getFileName(@PathVariable("empId") Long empId){
         String fileName= service.fetchFileNameByEmpId(empId);
         return ResponseEntity.ok(fileName);

@@ -1,5 +1,6 @@
 package emp.EMSystem.config;
 
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -23,6 +24,12 @@ public class S3config {
 
     @Bean
     public AmazonS3 client(){
+
+//        ClientConfiguration clientConfig = new ClientConfiguration()
+//                .withMaxConnections(100) // Increase connection pool size
+//                .withConnectionTimeout(5000) // Set connection timeout
+//                .withSocketTimeout(5000) // Set socket timeout
+//                .withMaxErrorRetry(3); // Retry up to 3 times on
 
         AWSCredentials credentials=new BasicAWSCredentials(awsAccessKey,awsSecretKey);
         AmazonS3 amazonS3= AmazonS3ClientBuilder.standard()

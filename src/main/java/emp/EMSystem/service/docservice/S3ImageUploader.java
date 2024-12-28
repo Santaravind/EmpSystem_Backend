@@ -43,8 +43,6 @@ public class S3ImageUploader {
 
         //new add for database
         String fileurl=this.preSingedUrl(fileName);
-
-
         Document data=new Document(fileName,empId, new Date() );
         repositery.save(data);
         return fileurl ;
@@ -81,13 +79,42 @@ public class S3ImageUploader {
     }
 
 
-    public String getImagetUrlByName(String fileName) {
+//    public String getImagetUrlByName(String fileName) {
+//
+//        S3Object object=  client.getObject(bucketName,fileName);
+//        String key=object.getKey();
+//        String url=preSingedUrl(key);
+//
+//        return url;
+//    }
+    public String getImagetUrlByName(String fileName) throws RuntimeException {
+        // Ensure resources are properly closed to avoid connection pool issues
+        try (S3Object object = client.getObject(bucketName, fileName)) {
+            String key = object.getKey();
+            return preSingedUrl(key);
+        } catch (AmazonS3Exception | IOException e) {
+            throw new RuntimeException("Failed to fetch object from S3: " + e.getMessage(), e);
+        }
+    }
 
-        S3Object object=  client.getObject(bucketName,fileName);
-        String key=object.getKey();
-        String url=preSingedUrl(key);
+    public String getFileUrlByEmpId(long empId) throws RuntimeException {
+        try {
+            // Step 1: Fetch the file name using the employee ID
+            String fileName = repositery.getFileNameByEmpId(empId);
 
-        return url;
+            // If no file name is found for the given employee ID, handle it gracefully
+            if (fileName == null || fileName.isEmpty()) {
+                throw new RuntimeException("File not found for employee ID: " + empId);
+            }
+
+            // Step 2: Fetch the S3 object and generate the pre-signed URL
+            try (S3Object object = client.getObject(bucketName, fileName)) {
+                String key = object.getKey();
+                return preSingedUrl(key);  // Generate and return the pre-signed URL
+            }
+        } catch (AmazonS3Exception | IOException e) {
+            throw new RuntimeException("Failed to fetch file URL for employee ID " + empId + ": " + e.getMessage(), e);
+        }
     }
 
 

@@ -19,7 +19,7 @@ public class S3Controller {
    private S3ImageUploader uploader;
 
     //upload image
-    @PostMapping("/upload")
+    @PostMapping("/profile/upload")
     public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file , @RequestParam("empID")  Long empId) throws IOException {
         return  ResponseEntity.ok(uploader.uploadImage(file,empId));
     }
@@ -30,15 +30,18 @@ public class S3Controller {
         return uploader.allFiles();
     }
 
-
     //get url by name
-
-    @GetMapping("/{fileName}")
-    public String urlByName(@PathVariable("fileName") String fileName){
+    @GetMapping("/profile/{fileName}")
+    public String urlByName(@PathVariable("fileName") String fileName) {
 
         return uploader.getImagetUrlByName(fileName);
     }
 
+    //getUrl By empId
+    @GetMapping("/profile/empId/{empId}")
+    public String urlByEmpId(@PathVariable("empId") Long empId){
+        return uploader.getFileUrlByEmpId(empId);
+    }
 
 
 }
