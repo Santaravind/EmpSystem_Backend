@@ -18,6 +18,7 @@ public class HrController {
 
     @GetMapping("/hr")
     public ResponseEntity<List<HR>> getAllEmployee(){
+
         return  ResponseEntity.ok(hrService.getAllHrDetail());
     }
 
