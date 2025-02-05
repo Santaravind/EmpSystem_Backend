@@ -20,16 +20,17 @@ public class DocController {
     public DocController(DocService service) {
         this.service = service;
     }
+    //not use
     @GetMapping("/database/get-all")
     public List<Document> getAllFilesname(){
         return service.getallfiles();
     }
-
+    //not use
     @GetMapping("/database/file/{id}")
     public Optional<Document> getfilebyId(@PathVariable Long id){
         return  service.getFilebyId(id);
     }
-
+    //not use
     @GetMapping("/database/filebyempId/{empId}")
     public ResponseEntity<String> getFileName(@PathVariable("empId") Long empId){
         String fileName= service.fetchFileNameByEmpId(empId);

@@ -97,6 +97,18 @@
 			<artifactId>aws-java-sdk-s3</artifactId>
 			<version>1.12.694</version>
 		</dependency>
+      <!--Mail service dependency-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 
 	</dependencies>
 

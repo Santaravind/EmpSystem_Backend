@@ -87,6 +87,7 @@ public class S3ImageUploader {
 //
 //        return url;
 //    }
+
     public String getImagetUrlByName(String fileName) throws RuntimeException {
         // Ensure resources are properly closed to avoid connection pool issues
         try (S3Object object = client.getObject(bucketName, fileName)) {
@@ -99,7 +100,7 @@ public class S3ImageUploader {
 
     public String getFileUrlByEmpId(long empId) throws RuntimeException {
         try {
-            // Step 1: Fetch the file name using the employee ID
+            //  Fetch the file name using the employee ID
             String fileName = repositery.getFileNameByEmpId(empId);
 
             // If no file name is found for the given employee ID, handle it gracefully
@@ -107,7 +108,7 @@ public class S3ImageUploader {
                 throw new RuntimeException("File not found for employee ID: " + empId);
             }
 
-            // Step 2: Fetch the S3 object and generate the pre-signed URL
+            //  Fetch the S3 object and generate the pre-signed URL
             try (S3Object object = client.getObject(bucketName, fileName)) {
                 String key = object.getKey();
                 return preSingedUrl(key);  // Generate and return the pre-signed URL
