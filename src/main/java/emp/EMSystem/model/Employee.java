@@ -1,10 +1,13 @@
 package emp.EMSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -49,5 +52,13 @@ public class Employee {
      @Column(name = "Status" ,nullable = false)
     private String status;
 
+     //this for attendance mapping
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
 
+    private List<Attendance> attendances;
+
+
+    public String getName() {
+        return first_Name;
+    }
 }

@@ -121,17 +121,14 @@ public ResponseEntity<String> verifyOtp(@PathVariable Integer otp,@PathVariable 
 
 }
 
- @PostMapping("/changepassword/{email}")
+ @PatchMapping("/{email}/changepassword")
     public ResponseEntity<String> changePasswordHandler(@PathVariable String email ,@RequestBody ChangePassword changePassword){
-        if (!Objects.equals(changePassword.password(),changePassword.password())){
+        if (!Objects.equals(changePassword.password(),changePassword.repeatPassword())){
             return new ResponseEntity<>("Please enter the password again !!",HttpStatus.EXPECTATION_FAILED);
         }
-
         String encoderPassword =passwordEncoder.encode(changePassword.password());
         userRepo.updatePassword(email,encoderPassword);
-
-
-       return ResponseEntity.ok("Password has been changed!");
+        return ResponseEntity.ok("Password has been changed!");
  }
 
 

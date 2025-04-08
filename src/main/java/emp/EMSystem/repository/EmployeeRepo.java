@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface EmployeeRepo extends JpaRepository<Employee,Long> {
@@ -17,5 +18,6 @@ public interface EmployeeRepo extends JpaRepository<Employee,Long> {
    List<Employee> findByDepartment(@Param("department") String department);
 
 
+   Optional<Employee> findByEmailId(String email);
 
 }
