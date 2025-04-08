@@ -1,5 +1,6 @@
 package emp.EMSystem.service.attendservice;
 
+import emp.EMSystem.dto.AttendanceDTO;
 import emp.EMSystem.model.Attendance;
 import emp.EMSystem.model.Employee;
 import emp.EMSystem.repository.AttendanceRepositery;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AttendanceService {
@@ -65,8 +67,31 @@ public class AttendanceService {
         return "Attendance stopped successfully for " + employee.getName();
     }
 
-    // Get all Active Employees (only for HR/Admin)
-    public List<Attendance> getActiveEmployees() {
-        return attendancerepo.findAllByActiveTrue();
+
+
+    //Get All Attendance
+    public List<Attendance> getAllAttendance(){
+        return  attendancerepo.findAll();
     }
+
+     // Get all Active Employees (only for HR/Admin)
+    public List<AttendanceDTO> getActiveAttendances() {
+        List<Attendance> attendances = attendancerepo.findByActive(true);
+
+        return attendances.stream()
+                .map(att -> new AttendanceDTO(
+                        att.getId(),
+                        att.getStartTime(),
+                        att.getEndTime(),
+                        att.getDuration(),
+                        att.isActive(),
+                        att.getEmployee().getFirst_Name() + " " + att.getEmployee().getLast_Name(),
+                        att.getEmployee().getEmailId(),
+                        att.getEmployee().getEmployeeID()
+
+                ))
+                .collect(Collectors.toList());
+    }
+
+
 }

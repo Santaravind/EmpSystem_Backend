@@ -15,4 +15,5 @@ public interface AttendanceRepositery extends JpaRepository<Attendance,Long> {
    // List<Attendance> findAllByActiveTrue();
     List<Attendance> findAllByActiveTrue();
 
+    List<Attendance> findByActive(boolean b);
 }

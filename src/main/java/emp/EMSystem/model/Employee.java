@@ -1,6 +1,6 @@
 package emp.EMSystem.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,10 +23,12 @@ public class Employee {
     private Integer employeeID;
 
      @Column(name = "First_Name" ,nullable = false)
-    private String first_Name;
+     private String first_Name;
+
 
      @Column(name = "Last_Name",nullable = false)
     private String last_Name;
+
 
      @Column(name = "EmailId", nullable = false)
     private String emailId;
@@ -43,8 +45,10 @@ public class Employee {
      @Column(name = "Joining_Date" ,nullable = false)
     private String joining_Date;
 
+
      @Column(name = "Department",nullable = false)
     private String department;
+
 
      @Column(name = "Position", nullable = false)
     private String position;
