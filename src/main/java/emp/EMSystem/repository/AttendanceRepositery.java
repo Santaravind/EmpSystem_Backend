@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface AttendanceRepositery extends JpaRepository<Attendance,Long> {
     Optional<Attendance> findByEmployeeAndActiveTrue(Employee employee);
     List<Attendance> findByEmployee(Employee employee);
-   // List<Attendance> findAllByActiveTrue();
+   //List<Attendance> findAllByActiveTrue();
     List<Attendance> findAllByActiveTrue();
 
     List<Attendance> findByActive(boolean b);

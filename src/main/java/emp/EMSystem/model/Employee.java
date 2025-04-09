@@ -58,7 +58,6 @@ public class Employee {
 
      //this for attendance mapping
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-
     private List<Attendance> attendances;
 
 

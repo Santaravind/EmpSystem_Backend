@@ -21,12 +21,21 @@ public class AttendanceScheduler {
 
 
         for (Attendance attendance : activeAttendances) {
-            if (attendance.getStartTime().plusHours(1).isBefore(LocalDateTime.now())) {
-                attendance.setEndTime(LocalDateTime.now().isAfter(attendance.getStartTime().plusHours(1)) ?
-                        attendance.getStartTime().plusHours(1) : LocalDateTime.now());
+            if (attendance.getStartTime().plusHours(6).isBefore(LocalDateTime.now())) {
+                attendance.setEndTime(LocalDateTime.now().isAfter(attendance.getStartTime().plusHours(6)) ?
+                        attendance.getStartTime().plusHours(6) : LocalDateTime.now());
                 attendance.setActive(false);
                 attendanceRepositery.save(attendance);
             }
+        
+        // this for testing perpuses only
+//        for (Attendance attendance : activeAttendances) {
+//            if (attendance.getStartTime().plusMinutes(2).isBefore(LocalDateTime.now())) {
+//                attendance.setEndTime(LocalDateTime.now().isAfter(attendance.getStartTime().plusMinutes(2)) ?
+//                        attendance.getStartTime().plusMinutes(2) : LocalDateTime.now());
+//                attendance.setActive(false);
+//                attendanceRepositery.save(attendance);
+//            }
         }
 
     }

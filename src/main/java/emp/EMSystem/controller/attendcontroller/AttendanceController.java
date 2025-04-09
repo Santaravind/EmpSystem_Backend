@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/attendance")
 public class AttendanceController {
 
@@ -39,7 +40,7 @@ public class AttendanceController {
 
     @PreAuthorize("hasRole('HR') or hasRole('ADMIN')")
     @GetMapping("/all-attendance")
-    public ResponseEntity<List<Attendance>> getAllAttendances(){
+    public ResponseEntity<List<AttendanceDTO>> getAllAttendances(){
         return ResponseEntity.ok(attendanceService.getAllAttendance());
     }
 

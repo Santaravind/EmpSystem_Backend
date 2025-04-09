@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -70,8 +71,25 @@ public class AttendanceService {
 
 
     //Get All Attendance
-    public List<Attendance> getAllAttendance(){
-        return  attendancerepo.findAll();
+    public List<AttendanceDTO> getAllAttendance(){
+        return attendancerepo.findAll().stream().map(attendance -> {
+            Long duration = null;
+            if (attendance.getStartTime() != null && attendance.getEndTime() != null) {
+                duration = Duration.between(attendance.getStartTime(), attendance.getEndTime()).toMinutes();
+            }
+
+            return new AttendanceDTO(
+                    attendance.getId(),
+                    attendance.getStartTime(),
+                    attendance.getEndTime(),
+                    duration,
+                    attendance.isActive(),
+                    attendance.getEmployee().getFirst_Name() + " " + attendance.getEmployee().getLast_Name(),
+                    attendance.getEmployee().getEmailId(),
+                    attendance.getEmployee().getEmployeeID()
+            );
+        }).collect(Collectors.toList());
+
     }
 
      // Get all Active Employees (only for HR/Admin)
