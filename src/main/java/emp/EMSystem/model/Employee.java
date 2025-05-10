@@ -1,10 +1,13 @@
 package emp.EMSystem.model;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,10 +23,12 @@ public class Employee {
     private Integer employeeID;
 
      @Column(name = "First_Name" ,nullable = false)
-    private String first_Name;
+     private String first_Name;
+
 
      @Column(name = "Last_Name",nullable = false)
     private String last_Name;
+
 
      @Column(name = "EmailId", nullable = false)
     private String emailId;
@@ -40,8 +45,10 @@ public class Employee {
      @Column(name = "Joining_Date" ,nullable = false)
     private String joining_Date;
 
+
      @Column(name = "Department",nullable = false)
     private String department;
+
 
      @Column(name = "Position", nullable = false)
     private String position;
@@ -49,5 +56,12 @@ public class Employee {
      @Column(name = "Status" ,nullable = false)
     private String status;
 
+     //this for attendance mapping
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Attendance> attendances;
 
+
+    public String getName() {
+        return first_Name;
+    }
 }

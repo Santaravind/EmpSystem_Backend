@@ -62,10 +62,23 @@ public class UserService {
                     loginRequest.getPassword()));
             var user=repo.findByEmail(loginRequest.getEmail()).orElseThrow();
             var jwt=jwtUtils.generateToken(user);
+
             var refresToken=jwtUtils.generateRefreshToken(new HashMap<>(),user);
+            response.setRefreshToken(refresToken);
+
+            //new add 3/5/2025
+            String role=user.getRole();
+            String name= user.getName();
+            String email= user.getEmail();
             response.setStatusCode(200);
             response.setToken(jwt);
-            response.setRefreshToken(refresToken);
+
+            //new add
+            response.setRole(role);
+            response.setName(name);
+            response.setEmail(email);
+
+
             response.setExpirationTime("24hr");
             response.setMessage("Successfully Login In");
 
